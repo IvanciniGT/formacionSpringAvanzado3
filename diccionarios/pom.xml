@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.curso</groupId>
+    <artifactId>diccionarios</artifactId>
+    <version>1.0-SNAPSHOT</version>
+    <name>Proyecto principal del grupo Diccionarios</name>
+    <modules>
+        <module>diccionarios-dominio</module>
+    </modules>
+
+    <packaging>pom</packaging> <!-- Montamos un proyecto multimódulo  -->
+
+    <properties>
+        <maven.compiler.source>17</maven.compiler.source>
+        <maven.compiler.target>17</maven.compiler.target>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <spring-boot.version>3.3.4</spring-boot.version>
+    </properties>
+
+    <dependencies>
+        <!-- Anotaciones guays para picar poco código -->
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <scope>provided</scope> <!-- ese jar (lombok) solo debe estar disponible en tiempo de compilación -->
+        </dependency>
+        <!-- Spring: Core... mediante Springboot -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter</artifactId>
+            <!-- estos jars deben estar disponibles en tiempo de compilación y en tiempo de ejecución -->
+        </dependency>
+        <!-- Spring: Pruebas -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>  <!-- estos jars solo deben estar disponibles en tiempo de test -->
+        </dependency>
+    </dependencies>
+
+    <dependencyManagement>
+        <!--
+         Vamos a configurar un BOM (Bill of Materials) para que todos los módulos usen las mismas versiones de las dependencias
+         y nos olvidemos de configuraciones individuales para cada librería. Un BOM es un archivo pom que define un montón de
+         versiones de librerías compatibles entre sí.
+        -->
+        <dependencies>
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-dependencies</artifactId>
+                <version>${spring-boot.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+</project>

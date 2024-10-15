@@ -31,6 +31,7 @@ public class Aplicacion {
     }
     public void procesarPeticion(String idioma, String palabra, SuministradorDeDiccionarios suministrador){ // Inyección de dependencias
         //SuministradorDeDiccionarios suministrador = SuministradorDeDiccionariosFactory.getInstance();
+        //SuministradorDeDiccionarios suministrador = new SuministradorDeDiccionariosDesdeFicheros("/diccionarios");
         if(suministrador.existeDiccionario(idioma)){
             Optional<Diccionario> potencialDiccionario = suministrador.getDiccionario(idioma);
             Diccionario diccionario = potencialDiccionario.get(); // Si no hay nada (está vacio -> lanza NullPointerException)
@@ -59,7 +60,7 @@ package com.curso.diccionario;
 public interface Diccionario {
     public String getIdioma();
     public boolean existe(String palabra);
-    public Optional<List<String>> getSignificados(String palabra);
+    public Optional<List<String>> getSignificados(@NonNull String palabra);
 }
 
 public interface SuministradorDeDiccionarios {
