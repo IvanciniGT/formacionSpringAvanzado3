@@ -16,7 +16,7 @@ public interface DiccionariosRepository {
     Optional<Diccionario> getDiccionario(@NonNull Idioma idioma, @NonNull String nombre);
     List<Diccionario> getDiccionario(@NonNull Idioma idioma);
     void updateDiccionario(@NonNull Diccionario diccionario) throws NonExistentEntityException, InvalidArgumentException;
-    void newDiccionario(@NonNull Diccionario diccionario) throws InvalidArgumentException, AlreadyExistsEntityException;
+    Diccionario newDiccionario(@NonNull String nombre, Idioma idioma) throws InvalidArgumentException, AlreadyExistsEntityException;
     Optional<Diccionario> deleteDiccionario(@NonNull Diccionario diccionario);
 
 }

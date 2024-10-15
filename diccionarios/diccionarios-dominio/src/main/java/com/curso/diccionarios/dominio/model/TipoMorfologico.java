@@ -2,7 +2,7 @@ package com.curso.diccionarios.dominio.model;
 
 public interface TipoMorfologico {
 
-    String getTipo();
-    String getDescripcion();
-
+    String getTipo(); // sm
+    String getDescripcion();  // Sustantivo Masculino
+    void setDescription(String description);
 }

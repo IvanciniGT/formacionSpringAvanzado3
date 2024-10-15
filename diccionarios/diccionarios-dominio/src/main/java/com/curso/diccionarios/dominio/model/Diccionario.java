@@ -6,4 +6,5 @@ public interface Diccionario {
     String getNombre();
     Idioma getIdioma();
     List<Palabra> getPalabras();
+
 }

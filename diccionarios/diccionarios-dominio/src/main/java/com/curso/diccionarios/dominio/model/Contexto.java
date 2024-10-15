@@ -4,5 +4,5 @@ public interface Contexto {
 
     String getContexto();
     String getDescripcion();
-
+    void setDescription(String description);
 }
