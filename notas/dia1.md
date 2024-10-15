@@ -53,14 +53,40 @@ Son 5 principios, recopilados por el TIO BOB (Robert C. Martin) en 2000, que bus
 La recopilación del tio BOB es un puto desastre.
 
 S - Single Responsability Principle - Principio de responsabilidad única.
+    Empezó como:   Una clase debe atender a una única responsabilidad.
+    Más adelante:  Una clase debe tener una única razón para cambiar.
+    Finalmente:    una clase debe atender a un único actor. ** BUENA !!!!!
+                        Usuario de búsqueda
+                        Editor de diccionarios
+                        Administrador de diccionarios (importar/exportar)
+                        Administradores de BBDD (Oracle -> Postgres)
 O - Open/Closed Principle - Principio de abierto/cerrado.
 L - Liskov Substitution Principle - Principio de sustitución de Liskov.
+    Una subclase debe poder ser sustituida por su clase base sin que el programa falle.
+    Esto explicado en plata : El contrato debe estar MUY CLARO:
+        - una subclase no pode poner restricciones adicionales a los argumentos de los métodos de la clase base.
+        - una subclase no puede lanzar excepciones que no lance la clase base.
+        - una subclase no puede devolver valores más laxos de los que devuelve la clase base.
 I - Interface Segregation Principle - Principio de segregación de interfaces.
+    Mejor muchas interfaces cliente-específicas que una general.
+    No des a alguien que necesita hacer un tipo de operaciones una interfaz con operaciones que no necesita.
+    CUIDADO !!!! No pongas muchos métodos en una interfaz que luego tengas la obligación de implementar en todas las clases que implementen esa interfaz (que quizás no necesiten esos métodos).
 D - Dependency Inversion Principle - Principio de inversión de dependencias.
+
+Los principios los tengo, yo como persona. Y cuando actúo puedo respetarlos o no. Y si no los respeto no pasa nada.
 
 Estos son algunos... Otros son KISS, DRY, YAGNI, SOC, etc.
 
-Los principios los tengo, yo como persona. Y cuando actúo puedo respetarlos o no. Y si no los respeto no pasa nada.
+### SoC - Separation of Concerns - Separación de preocupaciones
+
+Originalmente esto significa que al enfrentarme a un desarrollo, debo pensar en las cosas por separado (yo como humano): Persistencia / Lógica de negocio / Presentación.
+
+Más adelante se empezó a variar su significado: Separar en clases distintas las distintas responsabilidades/preocupaciones de un sistema.
+    - Clase PERSISTENCIA
+    - Clase LÓGICA DE NEGOCIO
+    - Clase PRESENTACIÓN
+
+---
 
 ## D - Dependency Inversion Principle - Principio de inversión de dependencias.
 
@@ -298,3 +324,115 @@ I - Independent
 R - Repeatable
 S - Self-validating
 T - Timely              Oportuna
+
+
+
+---
+
+
+```java
+public class Rectangulo {
+
+    private int base;
+    private int altura;
+
+    public Rectangulo() {
+    }
+
+    public Rectangulo(int base, int altura) {
+        this.base = base;
+        this.altura = altura;
+    }
+
+    public void setBase(int base) {
+        this.base = base;
+    }
+
+    public void setAltura(int altura) {
+        this.altura = altura;
+    }
+
+    public int getBase() {
+        return base;
+    }
+
+    public int getAltura() {
+        return altura;
+    }
+
+    public int getArea() {
+        return base * altura;
+    }
+}
+
+public class Cuadrado extends Rectangulo {
+
+    public Cuadrado(){
+        super();
+    }
+
+    public Cuadrado(int lado) {
+        super(lado, lado);
+    }
+
+    public void setBase(int base) {
+        setAltura(base);
+    }
+
+    public void setAltura(int altura) {
+        setBase(altura);
+    }
+}
+
+// Y ESTE EJEMPLO ES LA MAYOR MIERDA DEL MUNDO... Por que? ROMPE CON EL PRINCIPIO DE SUSTITUCION DE LISKOV (Bárbara Liskov)
+
+@Test
+public void verificarAreaDelRectangulo(Rectangulo r) {
+    Rectangulo rectangulo = new Cuadrado(3);
+    assertEquals(9, rectangulo.getArea());
+}
+@Test
+public void verificarAreaDelRectangulo(Rectangulo r) {
+    Rectangulo rectangulo = new Rectangulo(3,3);
+    assertEquals(9, rectangulo.getArea());
+}
+
+```
+
+
+CuadradoNoEditable si es un RectanguloNoEditable
+RectanguloNoEditable
+
+```java
+
+
+public class RectanguloNoEditable {
+
+    private int base;
+    private int altura;
+
+    public RectanguloNoEditable(int base, int altura) {
+        this.base = base;
+        this.altura = altura;
+    }
+
+    public int getBase() {
+        return base;
+    }
+
+    public int getAltura() {
+        return altura;
+    }
+
+    public int getArea() {
+        return base * altura;
+    }
+}
+
+public class CuadradoNoEditable extends Rectangulo {
+
+    public CuadradoNoEditable(int lado{
+        super(lado,lado);
+    }
+
+}

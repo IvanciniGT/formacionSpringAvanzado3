@@ -1,4 +1,4 @@
-package com.curso.diccionarios.dominio;
+package com.curso.diccionarios.dominio.model;
 
 public interface TipoMorfologico {
 

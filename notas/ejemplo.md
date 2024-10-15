@@ -63,6 +63,7 @@ public interface Diccionario {
     public Optional<List<String>> getSignificados(@NonNull String palabra);
 }
 
+// Repositorio de diccionarios
 public interface SuministradorDeDiccionarios {
     public boolean existeDiccionario(String idioma);
     public Optional<Diccionario> getDiccionario(String idioma);
