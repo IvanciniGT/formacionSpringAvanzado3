@@ -1,20 +1,28 @@
 package com.curso.diccionarios.dominio.model;
 
-import lombok.Builder;
-import lombok.Getter;
-import lombok.ToString;
+import lombok.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @Getter
 @ToString
 @Builder
-public class Significado {
+
+public class SignificadoEditable {
+    String id;
     Integer numero;
+
+    @Setter
     String definicion;
+
     List<String> ejemplos;
-    Palabra palabra;
+
+    PalabraEditable palabra;
+
     List<Significado> sinonimos;
+
     List<Contexto> contextos;
+
     List<TipoMorfologico> tiposMorfologicos;
 }

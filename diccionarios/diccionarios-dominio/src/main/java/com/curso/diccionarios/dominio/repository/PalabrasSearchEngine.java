@@ -6,7 +6,6 @@ import com.curso.diccionarios.dominio.model.Palabra;
 import lombok.NonNull;
 
 import java.util.List;
-import java.util.Optional;
 
 public interface PalabrasSearchEngine {
 

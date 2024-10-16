@@ -14,8 +14,5 @@ public interface ContextosRepository {
 
     Optional<Contexto> getContexto(@NonNull String contexto);
     List<Contexto> getContextos();
-    void updateContexto(@NonNull Contexto contexto) throws InvalidArgumentException, NonExistentEntityException;
-    void newContexto(@NonNull Contexto contexto) throws InvalidArgumentException, AlreadyExistsEntityException;
-    Optional<Contexto> deleteContexto(@NonNull Contexto contexto);
 
 }

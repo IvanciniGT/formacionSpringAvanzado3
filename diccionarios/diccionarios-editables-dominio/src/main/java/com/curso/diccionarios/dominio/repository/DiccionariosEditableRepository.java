@@ -1,5 +1,7 @@
 package com.curso.diccionarios.dominio.repository;
 
+import com.curso.diccionarios.dominio.exception.AlreadyExistsEntityException;
+import com.curso.diccionarios.dominio.exception.InvalidArgumentException;
 import com.curso.diccionarios.dominio.model.Diccionario;
 import com.curso.diccionarios.dominio.model.Idioma;
 import lombok.NonNull;
@@ -7,11 +9,13 @@ import lombok.NonNull;
 import java.util.List;
 import java.util.Optional;
 
-public interface DiccionariosRepository {
+public interface DiccionariosEditableRepository {
 
     // YAGNI: You Aren't Gonna Need It
     Optional<Diccionario> getDiccionario(@NonNull Idioma idioma, @NonNull String nombre);
     List<Diccionario> getDiccionario(@NonNull Idioma idioma);
+    Diccionario newDiccionario(@NonNull String nombre, @NonNull Idioma idioma) throws InvalidArgumentException, AlreadyExistsEntityException;
+    Optional<Diccionario> deleteDiccionario(@NonNull String diccionario);
 
 }
 // Esto es clave hacerlo... Si no lo hago (El definir los NonNull... y las Excepciones dejo un sistema ambigüo)

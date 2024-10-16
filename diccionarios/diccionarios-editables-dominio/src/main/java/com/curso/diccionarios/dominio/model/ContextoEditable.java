@@ -1,15 +1,17 @@
 package com.curso.diccionarios.dominio.model;
 
-
 import lombok.Builder;
 import lombok.Getter;
+import lombok.Setter;
 import lombok.ToString;
 
 @Getter
 @ToString
 @Builder
-public class TipoMorfologico {
+public class ContextoEditable {
 
-    String tipo; // sm
-    String descripcion;  // Sustantivo Masculino
-}
+    String contexto;
+
+    @Setter
+    String descripcion;
+ }

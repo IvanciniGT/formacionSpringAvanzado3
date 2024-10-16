@@ -1,8 +1,15 @@
 package com.curso.diccionarios.dominio.model;
 
-public interface Variante {
+import lombok.Builder;
+import lombok.Getter;
+import lombok.ToString;
 
-    String getVariante();
-    TipoMorfologico getTipoMorfologico();
+@Getter
+@ToString
+@Builder
+public class Variante {
+
+    String variante;
+    TipoMorfologico tipoMorfologico;
 
 }

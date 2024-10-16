@@ -1,8 +1,14 @@
 package com.curso.diccionarios.dominio.model;
 
-public interface Contexto {
+import lombok.Builder;
+import lombok.Getter;
+import lombok.ToString;
 
-    String getContexto();
-    String getDescripcion();
-    void setDescription(String description);
+@Getter
+@ToString
+@Builder
+public class Contexto {
+
+    String contexto;
+    String descripcion;
 }

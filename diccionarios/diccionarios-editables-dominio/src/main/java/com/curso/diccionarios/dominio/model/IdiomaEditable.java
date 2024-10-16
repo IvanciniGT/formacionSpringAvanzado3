@@ -1,17 +1,16 @@
 package com.curso.diccionarios.dominio.model;
 
-import lombok.Builder;
-import lombok.Getter;
-import lombok.ToString;
+import lombok.*;
 
 import java.util.List;
 
 @Getter
 @ToString
 @Builder
-public class Idioma {
+public class IdiomaEditable {
 
     String idioma;
+    @Setter
     String icono;
     List<Diccionario> diccionarios;
 
