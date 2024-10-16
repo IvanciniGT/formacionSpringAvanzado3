@@ -18,6 +18,10 @@ import java.util.Optional;
 @Repository     // Es un componente (que le explico al desarrollador que es un componente de tipo repositorio... tiene logica de persistencia)
                 // Spring al arrancar, va a crear una instancia de esta clase... Y A cualquiera que pida un
                 // ContextosEditableRepository, le entregará esa instancia
+
+    // Spring -> ContextosEditableRepositoryImpl -> ContextoJpaRepository -> BBDD
+    //                                           -> ContextoMapper
+
 @RequiredArgsConstructor
 public class ContextosEditableRepositoryImpl implements ContextosEditableRepository {
 

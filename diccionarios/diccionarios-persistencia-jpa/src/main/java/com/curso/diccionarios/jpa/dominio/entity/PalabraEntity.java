@@ -10,7 +10,7 @@ import java.util.Optional;
 
 @Entity
 @Table(
-        name = "idiomas",
+        name = "palabras",
         uniqueConstraints = @UniqueConstraint(columnNames = {"palabra", "diccionario_id"})
 )
 @NoArgsConstructor
@@ -30,7 +30,7 @@ public class PalabraEntity {
     @JoinColumn(name = "diccionario_id")
     private DiccionarioEntity diccionario;
 
-    @OneToMany(mappedBy = "palabra")
+    @OneToMany(mappedBy = "variante")
     private List<VarianteEntity> variantes;
 
     @OneToMany(mappedBy = "palabra")

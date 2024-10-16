@@ -32,7 +32,7 @@ public class SignificadoEntity {
     @ManyToOne
     @JoinColumn(name = "palabra_id", nullable = false)
     private PalabraEntity palabra;
-
+/*
     @ManyToMany(mappedBy = "significado")
     @JoinTable(
             name = "significados_sinonimos",
@@ -40,7 +40,7 @@ public class SignificadoEntity {
             inverseJoinColumns = @JoinColumn(name = "sinonimo_id")
     )
     private List<SignificadoEntity> sinonimos;
-
+*/
     @ManyToMany
     @JoinTable(
             name = "significados_contextos",
