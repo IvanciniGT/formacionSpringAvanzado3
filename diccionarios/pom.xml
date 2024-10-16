@@ -10,6 +10,7 @@
     <name>Proyecto principal del grupo Diccionarios</name>
     <modules>
         <module>diccionarios-dominio</module>
+        <module>diccionarios-editables-dominio</module>
     </modules>
 
     <packaging>pom</packaging> <!-- Montamos un proyecto multimódulo  -->
