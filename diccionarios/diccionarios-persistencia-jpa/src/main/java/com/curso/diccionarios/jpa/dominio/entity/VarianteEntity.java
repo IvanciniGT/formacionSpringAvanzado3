@@ -9,17 +9,16 @@ import lombok.*;
 @Getter
 @Setter
 @ToString
-@EqualsAndHashCode
 public class VarianteEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Integer id;
+    private Integer id;
 
     @Column(nullable = false, length = 25, unique = true)
-    String variante;
+    private String variante;
 
     @ManyToOne()
     @JoinColumn(name = "tipo_morfologico_id")
-    TipoMorfologicoEntity tipoMorfologico;
+    private TipoMorfologicoEntity tipoMorfologico;
 
 }

@@ -9,16 +9,15 @@ import lombok.*;
 @Getter
 @Setter
 @ToString
-@EqualsAndHashCode
 public class TipoMorfologicoEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Integer id;
+    private Integer id;
 
     @Column(nullable = false, length = 10, unique = true)
-    String tipo; // sm
+    private String tipo; // sm
 
     @Column(nullable = false, length = 100)
-    String descripcion;  // Sustantivo Masculino
+    private String descripcion;  // Sustantivo Masculino
 }

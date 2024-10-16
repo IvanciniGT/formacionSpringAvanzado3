@@ -10,6 +10,7 @@ import lombok.ToString;
 @Builder
 public class TipoMorfologico {
 
-    String tipo; // sm
-    String descripcion;  // Sustantivo Masculino
+    private String tipo; // sm
+    private String descripcion;  // Sustantivo Masculino
+
 }

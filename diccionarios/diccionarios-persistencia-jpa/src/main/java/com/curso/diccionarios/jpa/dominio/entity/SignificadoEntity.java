@@ -14,28 +14,32 @@ import java.util.Optional;
 @Getter
 @Setter
 @ToString
-@EqualsAndHashCode
 public class SignificadoEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Integer internalId;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Integer internalId;
 
     @Column(nullable = false, length = 50, unique = true)
-    String id;
+    private String id; // AUTOGENERADO UUID
 
     @Column(nullable = false)
-    Integer numero;
+    private Integer numero;
 
     @Column(nullable = false, length = 500, unique = true)
-    String definicion;
+    private String definicion;
 
     @ManyToOne
     @JoinColumn(name = "palabra_id", nullable = false)
-    PalabraEntity palabra;
+    private PalabraEntity palabra;
 
-    @OneToMany(mappedBy = "significado")
-    List<SignificadoEntity> sinonimos;
+    @ManyToMany(mappedBy = "significado")
+    @JoinTable(
+            name = "significados_sinonimos",
+            joinColumns = @JoinColumn(name = "significado_id"),
+            inverseJoinColumns = @JoinColumn(name = "sinonimo_id")
+    )
+    private List<SignificadoEntity> sinonimos;
 
     @ManyToMany
     @JoinTable(
@@ -43,7 +47,7 @@ public class SignificadoEntity {
             joinColumns = @JoinColumn(name = "significado_id"),
             inverseJoinColumns = @JoinColumn(name = "contexto_id")
     )
-    List<ContextoEntity> contextos;
+    private List<ContextoEntity> contextos;
 
     @ManyToMany
     @JoinTable(
@@ -51,13 +55,13 @@ public class SignificadoEntity {
             joinColumns = @JoinColumn(name = "significado_id"),
             inverseJoinColumns = @JoinColumn(name = "tipo_morfologico_id")
     )
-    List<TipoMorfologicoEntity> tiposMorfologicos;
+    private List<TipoMorfologicoEntity> tiposMorfologicos;
 
-    @ElementCollection
+    @ElementCollection // (Crear una tabla 1-n) de forma muy cómoda
     @CollectionTable(
             name = "significados_ejemplos",
             joinColumns = @JoinColumn(name = "significado_id")
     )
-    List<String> ejemplos;
+    private List<String> ejemplos;
 
 }

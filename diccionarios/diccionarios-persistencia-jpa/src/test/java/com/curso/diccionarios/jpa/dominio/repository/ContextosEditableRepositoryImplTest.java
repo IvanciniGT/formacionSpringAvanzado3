@@ -31,7 +31,7 @@ class ContextosEditableRepositoryImplTest {
 
     public ContextosEditableRepositoryImplTest() {
         // Inicializamos los mocks
-        MockitoAnnotations.openMocks(this);
+        MockitoAnnotations.openMocks(this); // Mockito!!! Aplica esas anotaciones en esta instancia
     }
 
     // Test para obtener un contexto existente
@@ -57,6 +57,7 @@ class ContextosEditableRepositoryImplTest {
 
         // Entonces: Se verifica que el contexto es retornado y tiene la descripción correcta
         assertTrue(resultado.isPresent());
+        assertEquals("contexto_prueba", resultado.get().getContexto());
         assertEquals("Descripción de prueba", resultado.get().getDescripcion());
         verify(contextoJpaRepository, times(1)).findByContexto(eq(contexto));
         verify(contextoMapper, times(1)).entityToModel(contextoEntity);

@@ -11,20 +11,37 @@ import java.util.List;
 @Getter
 @Setter
 @ToString
-@EqualsAndHashCode
 public class IdiomaEntity  {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Integer id;
+    private Integer id;
 
     @Column(nullable = false, length = 10, unique = true)
-    String idioma;
+    private String idioma;
 
     @Column(nullable = false, length = 100)
-    String icono;
+    private String icono;
 
     @OneToMany(mappedBy = "idioma")
-    List<DiccionarioEntity> diccionarios;
+    private List<DiccionarioEntity> diccionarios;
 
 }
+
+/*
+
+    Idioma                 -<       Diccionario
+    id | idioma  | icono            id | nombre    | idioma
+    1 | Español | 🇪🇸                1  | Oxford    |  2
+    2 | Inglés  | 🇬🇧                2  | Cambridge |  2
+    3 | Francés | 🇫🇷
+
+    DDL
+    CREATE TABLE idiomas (
+        id INT PRIMARY KEY,
+        idioma VARCHAR(10) NOT NULL UNIQUE,
+        icono VARCHAR(100) NOT NULL
+    );
+
+
+*/

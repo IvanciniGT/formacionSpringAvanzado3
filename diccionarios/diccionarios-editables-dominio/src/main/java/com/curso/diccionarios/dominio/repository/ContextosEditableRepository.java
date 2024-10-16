@@ -15,6 +15,7 @@ public interface ContextosEditableRepository {
     List<ContextoEditable> getContextos();
     void updateContexto(@NonNull ContextoEditable contexto) throws InvalidArgumentException, NonExistentEntityException;
     ContextoEditable newContexto(@NonNull String contexto, @NonNull String descripcion) throws InvalidArgumentException, AlreadyExistsEntityException;
+                                // KISS: Keep It Simple, Stupid
     Optional<ContextoEditable> deleteContexto(@NonNull String contexto);
 
 }

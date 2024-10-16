@@ -10,8 +10,8 @@ import lombok.ToString;
 @Builder
 public class ContextoEditable {
 
-    String contexto;
+    private String contexto;
 
     @Setter
-    String descripcion;
+    private String descripcion;
  }

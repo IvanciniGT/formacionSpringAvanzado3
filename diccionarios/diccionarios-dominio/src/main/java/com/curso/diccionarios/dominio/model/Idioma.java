@@ -16,3 +16,8 @@ public class Idioma {
     List<Diccionario> diccionarios;
 
 }
+
+// POJO: Plain Old Java Object: Clase con setters y getters.
+// Los DTOs son POJOs que se utilizan para transferir datos entre subsistemas de un sistema de información.
+// Los modelos de dominio son POJOs que representan conceptos del dominio de un sistema de información.
+// Las entidades son POJOs que representan conceptos del dominio de un sistema de información y que se persisten en una base de datos.
