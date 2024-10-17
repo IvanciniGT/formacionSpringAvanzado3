@@ -13,10 +13,10 @@ import java.util.Optional;
 @Builder
 
 public class PalabraEditable  {
-    String palabra;
-    Diccionario getDiccionario;
+    private String palabra;
+    private Diccionario diccionario;
 
-    List<Variante> variantes;
+    private List<Variante> variantes;
 
-    List<SignificadoEditable> significados;
+    private List<SignificadoEditable> significados;
 }

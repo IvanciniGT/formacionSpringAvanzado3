@@ -10,21 +10,21 @@ import java.util.Optional;
 @Builder
 
 public class SignificadoEditable {
-    String id;
-    Integer numero;
+    private String publicId;
+    private Integer numero;
 
     @Setter
-    String definicion;
+    private String definicion;
 
-    List<String> ejemplos;
+    private List<String> ejemplos;
 
-    PalabraEditable palabra;
+    private PalabraEditable palabra;
 
-    List<Significado> sinonimos;
+    private List<Significado> sinonimos;
 
-    List<Contexto> contextos;
+    private List<Contexto> contextos;
 
-    List<TipoMorfologico> tiposMorfologicos;
+    private List<TipoMorfologico> tiposMorfologicos;
 }
 /*
 

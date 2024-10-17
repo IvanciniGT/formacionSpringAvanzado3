@@ -1,15 +1,13 @@
 package com.curso.diccionarios.jpa.dominio.entity;
 
-import com.curso.diccionarios.dominio.model.*;
 import jakarta.persistence.*;
 import lombok.*;
 
 import java.util.List;
-import java.util.Optional;
-
 
 @Entity
-@Table(name = "significados")
+@Table(name = "significados",
+        uniqueConstraints = @UniqueConstraint(columnNames = {"palabra_id", "numero"})) // Restricción única
 @NoArgsConstructor
 @Getter
 @Setter
@@ -18,10 +16,10 @@ public class SignificadoEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Integer internalId;
+    private Integer id;
 
     @Column(nullable = false, length = 50, unique = true)
-    private String id; // AUTOGENERADO UUID
+    private String publicId; // AUTOGENERADO UUID
 
     @Column(nullable = false)
     private Integer numero;
@@ -32,15 +30,16 @@ public class SignificadoEntity {
     @ManyToOne
     @JoinColumn(name = "palabra_id", nullable = false)
     private PalabraEntity palabra;
-/*
-    @ManyToMany(mappedBy = "significado")
+
+    // Relación muchos a muchos para sinónimos (relación recursiva)
+    @ManyToMany
     @JoinTable(
             name = "significados_sinonimos",
             joinColumns = @JoinColumn(name = "significado_id"),
             inverseJoinColumns = @JoinColumn(name = "sinonimo_id")
     )
     private List<SignificadoEntity> sinonimos;
-*/
+
     @ManyToMany
     @JoinTable(
             name = "significados_contextos",
@@ -57,7 +56,7 @@ public class SignificadoEntity {
     )
     private List<TipoMorfologicoEntity> tiposMorfologicos;
 
-    @ElementCollection // (Crear una tabla 1-n) de forma muy cómoda
+    @ElementCollection
     @CollectionTable(
             name = "significados_ejemplos",
             joinColumns = @JoinColumn(name = "significado_id")

@@ -17,25 +17,25 @@ public interface PalabrasEditableRepository {
     PalabraEditable newPalabra(@NonNull Diccionario diccionario, @NonNull String palabra) throws InvalidArgumentException, AlreadyExistsEntityException;
     Optional<PalabraEditable> deletePalabra(@NonNull String palabra);
 
-    void addVariante(@NonNull PalabraEditable palabra, @NonNull String variante, @NonNull TipoMorfologico contexto) throws InvalidArgumentException;
+    void addVariante(@NonNull PalabraEditable palabra, @NonNull String variante, @NonNull TipoMorfologico contexto) throws InvalidArgumentException, NonExistentEntityException, AlreadyExistsEntityException;
     Optional<Variante> removeVariante(@NonNull PalabraEditable palabra, @NonNull String variante);
 
-    SignificadoEditable addSignificado(@NonNull PalabraEditable palabra, @NonNull String definicion) throws InvalidArgumentException;
+    SignificadoEditable addSignificado(@NonNull PalabraEditable palabra, @NonNull String definicion) throws InvalidArgumentException, NonExistentEntityException, AlreadyExistsEntityException;
     void updateSignificado(@NonNull SignificadoEditable significado) throws InvalidArgumentException, NonExistentEntityException;
-    Optional<SignificadoEditable> removeSignificado(@NonNull PalabraEditable palabra, @NonNull SignificadoEditable significado);
-    List<SignificadoEditable> rearrangeSignificados(@NonNull PalabraEditable palabra, @NonNull List<SignificadoEditable> significados);
+    Optional<SignificadoEditable> removeSignificado(@NonNull String publicIdSignificado) ;
+    List<SignificadoEditable> rearrangeSignificados(@NonNull PalabraEditable palabra, @NonNull List<SignificadoEditable> significados) throws NonExistentEntityException, InvalidArgumentException;
 
-    void addEjemplo(@NonNull String ejemplo);
-    Optional<String> removeEjemplo(@NonNull String ejemplo);
+    void addEjemplo(@NonNull SignificadoEditable significado, @NonNull String ejemplo) throws NonExistentEntityException;
+    Optional<String> removeEjemplo(@NonNull SignificadoEditable significado, @NonNull String ejemplo) throws NonExistentEntityException;
 
-    void addSinonimo(@NonNull Significado sinonimo);
-    Optional<Significado> removeSinonimo(@NonNull Significado sinonimo);
+    void addSinonimo(@NonNull SignificadoEditable significado,@NonNull SignificadoEditable sinonimo) throws NonExistentEntityException;
+    Optional<SignificadoEditable> removeSinonimo(@NonNull SignificadoEditable significado,@NonNull SignificadoEditable sinonimo) throws NonExistentEntityException;
 
-    void addContexto(@NonNull String contexto);
-    Optional<Contexto> removeContexto(@NonNull String contexto);
+    void addContexto(@NonNull SignificadoEditable significado, @NonNull String contexto) throws NonExistentEntityException;
+    Optional<Contexto> removeContexto(@NonNull SignificadoEditable significado, @NonNull String contexto) throws NonExistentEntityException;
 
-    void addTipoMorfologico(@NonNull String tipoMorfologico);
-    void removeTipoMorfologico(@NonNull String tipoMorfologico);
+    void addTipoMorfologico(@NonNull SignificadoEditable significado, @NonNull String tipoMorfologico) throws NonExistentEntityException;
+    Optional<TipoMorfologico> removeTipoMorfologico(@NonNull SignificadoEditable significado, @NonNull String tipoMorfologico) throws NonExistentEntityException;
 
 }
 

@@ -27,13 +27,13 @@ public class PalabraEntity {
     private String palabra;
 
     @ManyToOne()
-    @JoinColumn(name = "diccionario_id")
+    @JoinColumn(name = "diccionario_id", nullable = false)
     private DiccionarioEntity diccionario;
 
-    @OneToMany(mappedBy = "variante")
+    @OneToMany(mappedBy = "palabra", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<VarianteEntity> variantes;
 
-    @OneToMany(mappedBy = "palabra")
+    @OneToMany(mappedBy = "palabra", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<SignificadoEntity> significados;
 
 }

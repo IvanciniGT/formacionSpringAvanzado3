@@ -11,7 +11,7 @@ import lombok.ToString;
 
 public class TipoMorfologicoEditable  {
 
-    String tipo; // sm
+    private String tipo; // sm
     @Setter
-    String descripcion;  // Sustantivo Masculino
+    private String descripcion;  // Sustantivo Masculino
 }
