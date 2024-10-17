@@ -3,7 +3,6 @@ package com.curso.diccionarios.dominio.model;
 import lombok.*;
 
 import java.util.List;
-import java.util.Optional;
 
 @Getter
 @ToString

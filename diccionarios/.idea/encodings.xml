@@ -1,10 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="Encoding">
+    <file url="file://$PROJECT_DIR$/controlador-rest-gestion-diccionarios-v1/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/controlador-rest-gestion-diccionarios-v1/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/diccionarios-dominio/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/diccionarios-dominio/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/diccionarios-editables-dominio/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/diccionarios-editables-dominio/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/diccionarios-gestion-service/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/diccionarios-gestion-service/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/diccionarios-persistencia-jpa/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/diccionarios-persistencia-jpa/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/main/java" charset="UTF-8" />

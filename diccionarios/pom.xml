@@ -12,6 +12,8 @@
         <module>diccionarios-dominio</module>
         <module>diccionarios-editables-dominio</module>
         <module>diccionarios-persistencia-jpa</module>
+        <module>controlador-rest-gestion-diccionarios-v1</module>
+        <module>diccionarios-gestion-service</module>
     </modules>
 
     <packaging>pom</packaging> <!-- Montamos un proyecto multimódulo  -->
