@@ -11,6 +11,8 @@
     <file url="file://$PROJECT_DIR$/diccionarios-gestion-service/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/diccionarios-persistencia-jpa/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/diccionarios-persistencia-jpa/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/microservicio-diccionarios/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/microservicio-diccionarios/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/main/resources" charset="UTF-8" />
   </component>

@@ -14,6 +14,7 @@
         <module>diccionarios-persistencia-jpa</module>
         <module>controlador-rest-gestion-diccionarios-v1</module>
         <module>diccionarios-gestion-service</module>
+        <module>microservicio-diccionarios</module>
     </modules>
 
     <packaging>pom</packaging> <!-- Montamos un proyecto multimódulo  -->

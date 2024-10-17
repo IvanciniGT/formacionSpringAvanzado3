@@ -6,9 +6,13 @@ import com.curso.diccionarios.service.ContextoServicio;
 
 import com.curso.diccionarios.service.dto.ContextoDTO;
 import com.curso.diccionarios.service.exception.InvalidArgumentServiceException;
+import jakarta.annotation.security.RolesAllowed;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.annotation.Secured;
+import org.springframework.security.access.prepost.PostAuthorize;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -32,6 +36,15 @@ public class ContextoRestControllerV1 {
 
     // Implementamos el post para crear un contexto
     @PostMapping("/contexto")
+    // A esta función solo le deben poder llamar EDITORES DE DICCIONARIOS!
+    @RolesAllowed("EDITOR_DICCIONARIOS") // Listo.. De donde sale esta información ? ME LA PELA !
+    // Eso funcionará siempre y cuando me permitan usar esta anotación
+    //@Secured("EDITOR_DICCIONARIOS") // Esto es lo mismo que la anotación de arriba
+    // Eso funcionará siempre y cuando me permitan usar esta anotación
+    //@PreAuthorize("isAuthenticated()")//  Dentro usamos un lenguaje llamado SPEL (Spring Expression Language.. muy potente
+    //@PreAuthorize("hasRole('EDITOR_DICCIONARIOS')") // Esto es lo mismo que las anotaciones de arriba
+    // Eso funcionará siempre y cuando me permitan usar esta anotación... que va en conjunto con otra:
+    //@PostAuthorize() // Que el objeto que se devuelve tiene una atributo propietario igual al id del usuario autenticado
     public ResponseEntity<ContextoRestV1DTO> crearContexto(@RequestBody ContextoRestV1DTO contexto) throws InvalidArgumentServiceException {
                                                             // El JSON que se mande en el cuerpo(body) del requestHTTP se transformará en un objeto de tipo ContextoRestV1DTO
         ContextoDTO contextoDTO = contextoMapper.controllerDTO2serviceDTO(contexto);

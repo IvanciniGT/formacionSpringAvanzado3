@@ -96,6 +96,7 @@ class ContextoRestV1Test {
 
     @Test
     @DisplayName("Crear un contexto nuevo (happy path)")
+    @WithMockUser(username = "editor", roles = {"EDITOR_DICCIONARIOS"}) // Simula que hay un usuario conectado llamado editor con el rol EDITOR_DICCIONARIOS
     void crearContexto() throws Exception, InvalidArgumentServiceException {
         String nombreContexto = "contexto1";
         String descripcion = UUID.randomUUID().toString();
