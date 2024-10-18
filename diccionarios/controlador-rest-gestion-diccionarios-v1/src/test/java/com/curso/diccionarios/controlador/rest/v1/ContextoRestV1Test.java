@@ -13,6 +13,8 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
+import org.springframework.security.test.context.support.WithAnonymousUser;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
@@ -21,12 +23,15 @@ import java.util.List;
 import java.util.UUID;
 
 import static org.mockito.Mockito.*;
+import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @SpringBootTest(classes = AplicacionDePrueba.class, webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 // Me arranca la app y hasta un tomcat embebido en un puerto, el que sea
 @AutoConfigureMockMvc // Quiero que configures un cliente de pruebas HTTP contra ese tomcat. Tù sabrás donde está!
 @ExtendWith(SpringExtension.class) // Quiero que uses la extensión de JUnit 5 para Spring y poder hacer que JUnit 5 sepa que Spring está en uso y le pida cosas a él.
+//@WithMockUser(username = "editor", roles = {"EDITOR_DICCIONARIOS"}) // Simula que hay un usuario conectado llamado editor con el rol EDITOR_DICCIONARIOS
+
 class ContextoRestV1Test {
 
     @MockBean
@@ -106,9 +111,11 @@ class ContextoRestV1Test {
                 .thenReturn(contexto);
 
         clienteHttp.perform(
-                    MockMvcRequestBuilders.post("/api/v1/contexto")
-                    .contentType(MediaType.APPLICATION_JSON)
-                    .content("{\"contexto\":\"" + nombreContexto + "\",\"descripcion\":\"" + descripcion + "\"}")
+                        MockMvcRequestBuilders.post("/api/v1/contexto")
+                                .contentType(MediaType.APPLICATION_JSON)
+//                                .with(csrf())  // Agrega el token CSRF simulado para que Spring no rechace la petición
+                                // Pero en nuestro casi, hemos desactivado CSRF en la configuración de seguridad global de la aplicación para pruebas
+                                .content("{\"contexto\":\"" + nombreContexto + "\",\"descripcion\":\"" + descripcion + "\"}")
                 )
                 .andExpect(status().isCreated())  // Http: 201 CREATED
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
@@ -120,7 +127,26 @@ class ContextoRestV1Test {
     }
 
     @Test
+    @DisplayName("Intentar crear un contexto nuevo sin autenticarse")
+    void crearContextoSinAutenticarse() throws Exception, InvalidArgumentServiceException {
+        String nombreContexto = "contexto1";
+        String descripcion = UUID.randomUUID().toString();
+        // Configuro el servicio de Mentirijilla para que cuando le pidan crear un contexto devuelva el contexto
+        ContextoDTO contexto = new ContextoDTO(nombreContexto, descripcion);
+        when(servicioDeMentirijilla.crearContexto(contexto))
+                .thenReturn(contexto);
+
+        clienteHttp.perform(
+                        MockMvcRequestBuilders.post("/api/v1/contexto")
+                                .contentType(MediaType.APPLICATION_JSON)
+                                .content("{\"contexto\":\"" + nombreContexto + "\",\"descripcion\":\"" + descripcion + "\"}")
+                )
+                .andExpect(status().is(403));  // Http: 201 CREATED
+    }
+
+    @Test
     @DisplayName("Crear un contexto nuevo si el servicio está mal")
+    @WithMockUser(username = "editor", roles = {"EDITOR_DICCIONARIOS"}) // Simula que hay un usuario conectado llamado editor con el rol EDITOR_DICCIONARIOS
     void crearContextoConServicioErroneo() throws Exception, InvalidArgumentServiceException {
         String nombreContexto = "contexto1";
         String descripcion = UUID.randomUUID().toString();
@@ -132,6 +158,7 @@ class ContextoRestV1Test {
         clienteHttp.perform(
                 MockMvcRequestBuilders.post("/api/v1/contexto")
                         .contentType(MediaType.APPLICATION_JSON)
+                        .with(csrf())  // Agrega el token CSRF para que Spring no rechace la petición
                         .content("{\"contexto\":\"" + nombreContexto + "\",\"descripcion\":\"" + descripcion + "\"}")
         )
                 .andExpect(status().isInternalServerError())  // Http: 500 ERROR
@@ -143,6 +170,7 @@ class ContextoRestV1Test {
     }
     @Test
     @DisplayName("Crear un contexto nuevo si le paso un nombre de más de 10 caracteres... que no está permitido...")
+    @WithMockUser(username = "editor", roles = {"EDITOR_DICCIONARIOS"}) // Simula que hay un usuario conectado llamado editor con el rol EDITOR_DICCIONARIOS
     void crearContextoConNombreLargo() throws Exception, InvalidArgumentServiceException {
         String nombreContexto = "contexto1contexto1";
         String descripcion = UUID.randomUUID().toString();
@@ -154,6 +182,7 @@ class ContextoRestV1Test {
         clienteHttp.perform(
                 MockMvcRequestBuilders.post("/api/v1/contexto")
                         .contentType(MediaType.APPLICATION_JSON)
+                        .with(csrf())  // Agrega el token CSRF para que Spring no rechace la petición
                         .content("{\"contexto\":\"" + nombreContexto + "\",\"descripcion\":\"" + descripcion + "\"}")
         )
                 .andExpect(status().isBadRequest())  // Http: 400 BAD REQUEST

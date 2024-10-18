@@ -8,7 +8,7 @@
         <artifactId>diccionarios</artifactId>
         <version>1.0-SNAPSHOT</version>
     </parent>
-
+    <name>Capa de servicios del proyecto Diccionarios</name>
     <artifactId>diccionarios-gestion-service</artifactId>
 
     <properties>

@@ -8,7 +8,7 @@
         <artifactId>diccionarios</artifactId>
         <version>1.0-SNAPSHOT</version>
     </parent>
-
+    <name>Microservicio de diccionarios</name>
     <artifactId>microservicio-diccionarios</artifactId>
 
     <properties>
@@ -17,14 +17,41 @@
     <dependencies>
         <dependency>
             <groupId>com.curso</groupId>
+            <artifactId>diccionarios-persistencia-jpa</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>com.curso</groupId>
+            <artifactId>diccionarios-gestion-service-impl</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>com.curso</groupId>
             <artifactId>controlador-rest-gestion-diccionarios-v1</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>
         <dependency>
             <groupId>com.curso</groupId>
-            <artifactId>diccionarios-persistencia-jpa</artifactId>
+            <artifactId>diccionarios-security</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>
+        <!-- BBDD con soporte en RAM para pruebas. iDEAL !!!! Y además tiene integración total con Spring -->
+        <dependency>
+            <groupId>com.h2database</groupId>
+            <artifactId>h2</artifactId>
+            <version>2.3.232</version>
+        </dependency>
+
     </dependencies>
 
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <version>${spring-boot.version}</version>
+            </plugin>
+            <!-- Arrancar desde maven mi app, Generar una imagen de contendor con mi app -->
+        </plugins>
+    </build>
 </project>

@@ -8,8 +8,8 @@
         <artifactId>diccionarios</artifactId>
         <version>1.0-SNAPSHOT</version>
     </parent>
-    <name>Controlador REST v1 de gestión de diccionarios</name>
-    <artifactId>controlador-rest-gestion-diccionarios-v1</artifactId>
+    <name>Capa de seguridad del proyecto Diccionarios</name>
+    <artifactId>diccionarios-security</artifactId>
 
     <properties>
     </properties>
@@ -18,12 +18,12 @@
         <dependency>
             <!-- SpringBoot web, para poder crear nuestros servicios web -->
             <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-web</artifactId>
+            <artifactId>spring-boot-starter-security</artifactId>
         </dependency>
         <dependency>
             <!-- SpringBoot web, para poder crear nuestros servicios web -->
             <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-security</artifactId>
+            <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
         <dependency>
             <!-- SpringBoot web, para poder crear nuestros servicios web -->
@@ -32,11 +32,22 @@
         </dependency>
 
         <dependency>
-            <groupId>com.curso</groupId>
-            <artifactId>diccionarios-gestion-service</artifactId>
-            <version>1.0-SNAPSHOT</version>
+            <groupId>io.jsonwebtoken</groupId>
+            <artifactId>jjwt-api</artifactId>
+            <version>0.12.6</version>
         </dependency>
-
+        <dependency>
+            <groupId>io.jsonwebtoken</groupId>
+            <artifactId>jjwt-impl</artifactId>
+            <version>0.12.6</version>
+            <scope>runtime</scope>
+        </dependency>
+        <dependency>
+            <groupId>io.jsonwebtoken</groupId>
+            <artifactId>jjwt-jackson</artifactId> <!-- or jjwt-gson if Gson is preferred -->
+            <version>0.12.6</version>
+            <scope>runtime</scope>
+        </dependency>
 
     </dependencies>
 

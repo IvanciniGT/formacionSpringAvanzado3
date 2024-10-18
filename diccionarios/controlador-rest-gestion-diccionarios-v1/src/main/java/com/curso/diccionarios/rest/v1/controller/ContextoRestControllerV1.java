@@ -1,17 +1,14 @@
 package com.curso.diccionarios.rest.v1.controller;
 
 import com.curso.diccionarios.rest.v1.dto.ContextoRestV1DTO;
-import com.curso.diccionarios.rest.v1.mapper.ContextoMapper;
+import com.curso.diccionarios.rest.v1.mapper.ContextoTestV1Mapper;
 import com.curso.diccionarios.service.ContextoServicio;
 
 import com.curso.diccionarios.service.dto.ContextoDTO;
 import com.curso.diccionarios.service.exception.InvalidArgumentServiceException;
-import jakarta.annotation.security.RolesAllowed;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.annotation.Secured;
-import org.springframework.security.access.prepost.PostAuthorize;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
@@ -23,12 +20,12 @@ import java.util.List;
 public class ContextoRestControllerV1 {
 
     private final ContextoServicio contextoServicio;
-    private final ContextoMapper contextoMapper;
+    private final ContextoTestV1Mapper contextoTestV1Mapper;
 
     @GetMapping("/contexto")
     public ResponseEntity<List<ContextoRestV1DTO>> obtenerContextos() {
         List<ContextoDTO> resultadoDelServicio = contextoServicio.getContextos();
-        List<ContextoRestV1DTO> resultado = resultadoDelServicio.stream().map( contextoMapper:: serviceDTO2controllerDTO ).toList();
+        List<ContextoRestV1DTO> resultado = resultadoDelServicio.stream().map( contextoTestV1Mapper:: serviceDTO2controllerDTO ).toList();
         return ResponseEntity.ok(resultado); // Codigo 200
     }
     // ResponseEntity es una Caja que lleva dentro un Objeto (que será transformado a JSON por Spring)
@@ -37,7 +34,8 @@ public class ContextoRestControllerV1 {
     // Implementamos el post para crear un contexto
     @PostMapping("/contexto")
     // A esta función solo le deben poder llamar EDITORES DE DICCIONARIOS!
-    @RolesAllowed("EDITOR_DICCIONARIOS") // Listo.. De donde sale esta información ? ME LA PELA !
+    @PreAuthorize("hasRole('EDITOR_DICCIONARIOS')") // LENGUAJE DECLARATIVO
+    //@RolesAllowed("EDITOR_DICCIONARIOS") // Listo.. De donde sale esta información ? ME LA PELA !
     // Eso funcionará siempre y cuando me permitan usar esta anotación
     //@Secured("EDITOR_DICCIONARIOS") // Esto es lo mismo que la anotación de arriba
     // Eso funcionará siempre y cuando me permitan usar esta anotación
@@ -47,9 +45,9 @@ public class ContextoRestControllerV1 {
     //@PostAuthorize() // Que el objeto que se devuelve tiene una atributo propietario igual al id del usuario autenticado
     public ResponseEntity<ContextoRestV1DTO> crearContexto(@RequestBody ContextoRestV1DTO contexto) throws InvalidArgumentServiceException {
                                                             // El JSON que se mande en el cuerpo(body) del requestHTTP se transformará en un objeto de tipo ContextoRestV1DTO
-        ContextoDTO contextoDTO = contextoMapper.controllerDTO2serviceDTO(contexto);
+        ContextoDTO contextoDTO = contextoTestV1Mapper.controllerDTO2serviceDTO(contexto);
         ContextoDTO resultadoDelServicio = contextoServicio.crearContexto(contextoDTO);
-        ContextoRestV1DTO resultado = contextoMapper.serviceDTO2controllerDTO(resultadoDelServicio);
+        ContextoRestV1DTO resultado = contextoTestV1Mapper.serviceDTO2controllerDTO(resultadoDelServicio);
         return ResponseEntity.status(HttpStatus.CREATED).body(resultado); // Codigo 201
     }
 }
